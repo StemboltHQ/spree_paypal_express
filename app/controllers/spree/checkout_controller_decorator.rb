@@ -208,9 +208,7 @@ module Spree
       payment_method = Spree::PaymentMethod.find(params[:order][:payments_attributes].first[:payment_method_id])
       return unless payment_method.kind_of?(Spree::BillingIntegration::PaypalExpress) || payment_method.kind_of?(Spree::BillingIntegration::PaypalExpressUk)
 
-      update_params = object_params.dup
-      update_params.delete(:payments_attributes)
-      if @order.update_attributes(update_params)
+      if @order.update_from_params(params)
         fire_event('spree.checkout.update')
         render :edit and return unless apply_coupon_code
       end
