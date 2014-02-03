@@ -260,7 +260,7 @@ module Spree
 
     def order_opts(order, payment_method_id, stage)
       items = order.line_items.map do |item|
-        price = (item.amount * 100).to_i
+        price = (item.price * 100).to_i
         { :name        => item.variant.product.name.gsub(/<\/?[^>]*>/, ""),
           :description => (item.variant.product.description[0..120].gsub(/<\/?[^>]*>/, "") if item.variant.product.description),
           :number      => item.variant.sku,
